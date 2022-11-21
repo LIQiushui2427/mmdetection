@@ -244,9 +244,9 @@ embed_multi = dict(lr_mult=1.0, decay_mult=0.0)
 optimizer = dict(
     type='AdamW',#AdamW->Adam
     lr=0.0001,
-    weight_decay=0.03, # 0.05->0.03
+    weight_decay=0.05,
     eps=1e-8,
-    betas=(0.9, 0.99),# 0.999->0.99
+    betas=(0.9, 0.999),# 0.999->0.99
     paramwise_cfg=dict(
         custom_keys={
             'backbone': dict(lr_mult=0.1, decay_mult=1.0),
@@ -268,7 +268,7 @@ lr_config = dict(
     warmup_ratio=1.0,  # no warmup
     warmup_iters=10)
 
-max_iters = 160000
+max_iters = 16000
 runner = dict(type='IterBasedRunner', max_iters=max_iters)
 
 log_config = dict(
@@ -277,7 +277,7 @@ log_config = dict(
         dict(type='TextLoggerHook', by_epoch=False),
         dict(type='TensorboardLoggerHook', by_epoch=False)
     ])
-interval = 8000
+interval = 5000
 workflow = [('train', interval)]
 checkpoint_config = dict(
     by_epoch=False, interval=interval, save_last=True, max_keep_ckpts=3)
